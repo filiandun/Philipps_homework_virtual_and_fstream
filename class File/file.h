@@ -3,16 +3,20 @@
 #include <fstream>
 #include <string>
 
-using namespace std;
 
 class File
 {
 public:
 	File() = default;
-	virtual ~File() = default;
+	virtual ~File();
+
+protected:
+	std::ifstream input_file;
+	const char* path = nullptr;
 
 public:
-	virtual void display(const char* path) = 0;
+	void open_file(const char* path);
+	virtual void display_file() = 0;
 
 };
 
@@ -25,7 +29,7 @@ public:
 	~BaseFile() override = default;
 
 public:
-	void display(const char* path) final override;
+	void display_file() final override;
 
 };
 
@@ -38,7 +42,7 @@ public:
 	~ASCIIFile() override = default;
 
 public:
-	void display(const char* path) final override;
+	void display_file() final override;
 
 };
 
@@ -54,6 +58,6 @@ private:
 	int convert_to_binary(int num);
 
 public:
-	void display(const char* path) final override;
+	void display_file() final override;
 
 };

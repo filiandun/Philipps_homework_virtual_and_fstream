@@ -13,8 +13,10 @@ int main()
 // ФАЙЛ НЕ НАЙДЕН
     std::cout << "ФАЙЛ НЕ НАЙДЕН: " << std::endl;
 
-    File* file_not_found = new ASCIIFile;
-    file_not_found->display("D:\\ФАЙЛ_НЕ_СУЩЕСТВУЕТ.txt"); 
+    ASCIIFile file_not_found;
+
+    file_not_found.open_file("D:\\ФАЙЛ_НЕ_СУЩЕСТВУЕТ.txt");
+    file_not_found.display_file();
     
     
     std::cout << std::endl;
@@ -23,8 +25,10 @@ int main()
 // ПРОСТОЙ ВЫВОД
     std::cout << "ПРОСТОЙ ВЫВОД: " << std::endl;
 
-    File* file = new BaseFile;
-    file->display("D:\\text.txt");
+    BaseFile file;
+
+    file.open_file("D:\\text.txt");
+    file.display_file();
 
 
     std::cout << std::endl << std::endl;
@@ -33,8 +37,10 @@ int main()
 // ВЫВОД В ASCII
     std::cout << "ВЫВОД В ASCII: " << std::endl;
 
-    File* ascii_file = new ASCIIFile;
-    ascii_file->display("D:\\text.txt");
+    ASCIIFile ascii_file;
+
+    ascii_file.open_file("D:\\text.txt");
+    ascii_file.display_file();
 
 
     std::cout << std::endl << std::endl;
@@ -43,14 +49,15 @@ int main()
 // ВЫВОД В ДВОИЧНОЙ СИСТЕМЕ СЧИСЛЕНИЯ
     std::cout << "ВЫВОД В ДВОИЧНОЙ СИСТЕМЕ СЧИСЛЕНИЯ: " << std::endl;
 
-    File* bit_file = new BitFile;
-    bit_file->display("D:\\text.txt");
+    BitFile bit_file;
+
+
+    bit_file.open_file("D:\\text.txt");
+    bit_file.display_file();
 
 
     std::cout << std::endl << std::endl;
 
-
-    
 
     return 0;
 }

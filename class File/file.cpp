@@ -1,22 +1,28 @@
 #include "file.h"
 
 
-void BaseFile::display(const char* path)
+
+File::~File()
 {
-	std::ifstream input_file(path);
+	this->input_file.close();
+}
 
-	if (input_file.is_open())
+void File::open_file(const char* path)
+{
+	try
 	{
-		std::string s;
-		while (getline(input_file, s))
+		this->path = path;
+		this->input_file.open(this->path, std::ios::in);
+
+		if (!this->input_file.is_open())
 		{
-			std::cout << s;
+			throw "ERROR: FILE NOT FOUND";
 		}
-	}
 
-	else
+	}
+	catch (const char* err)
 	{
-		std::cerr << "ERROR: FILE NOT FOUND (" << path << ")" << std::endl;
+		std::cerr << err << std::endl;
 	}
 }
 
@@ -24,24 +30,54 @@ void BaseFile::display(const char* path)
 
 
 
-void ASCIIFile::display(const char* path)
-{
-	std::ifstream input_file(path);
 
-	if (input_file.is_open())
+
+void BaseFile::display_file()
+{
+	try
 	{
-		char ch = 0;
-		while (input_file.get(ch))
+		if (!this->input_file.is_open())
 		{
-			std::cout << (int) ch << " ";
+			throw "ERROR: FILE NOT FOUND!!!!";
+		}
+
+		char ch = 0;
+		while (this->input_file.get(ch))
+		{
+			std::cout << ch;
 		}
 	}
-	else
+
+	catch (const char* err)
 	{
-		std::cerr << "ERROR: FILE NOT FOUND (" << path << ")" << std::endl;
+		std::cerr << err << std::endl;
 	}
-	
-	input_file.close();
+}
+
+
+
+
+
+
+void ASCIIFile::display_file()
+{
+	try
+	{
+		if (!this->input_file.is_open())
+		{
+			throw "ERROR: FILE NOT FOUND!!!!";
+		}
+
+		char ch = 0;
+		while (this->input_file.get(ch))
+		{
+			std::cout << ch << " ";
+		}
+	}
+	catch (const char* err)
+	{
+		std::cerr << err << std::endl;
+	}
 }
 
 
@@ -64,23 +100,24 @@ int BitFile::convert_to_binary(int num)
 	return bin;
 }
 
-void BitFile::display(const char* path)
-{
-	std::ifstream input_file(path);
 
-	if (input_file.is_open())
+void BitFile::display_file()
+{
+	try
 	{
-		char ch = 0;
-		while (input_file.get(ch))
+		if (!this->input_file.is_open())
 		{
-			std::cout << convert_to_binary((int) ch) << " ";
+			throw "ERROR: FILE NOT FOUND!!!!";
+		}
+
+		char ch = 0;
+		while (this->input_file.get(ch))
+		{
+			std::cout << convert_to_binary(ch) << " ";
 		}
 	}
-	else
+	catch (const char* err)
 	{
-		std::cerr << "ERROR: FILE NOT FOUND (" << path << ")" << std::endl;
+		std::cerr << err << std::endl;
 	}
-
-	input_file.close();
 }
-
